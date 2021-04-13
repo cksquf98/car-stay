@@ -1,0 +1,13 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: demo
+
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://car-staydb.cj8iiewritpy.ap-northeast-2.rds.amazonaws.com/CarStayDB?autoReconnect=true
+    username: admin
+    password: adminadmin
+    driver-class-name: com.mysql.cj.jdbc.Driver
