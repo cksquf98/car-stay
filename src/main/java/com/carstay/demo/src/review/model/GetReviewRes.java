@@ -13,13 +13,12 @@ import java.util.Map;
 @AllArgsConstructor
 public class GetReviewRes {
     public GetReviewRes() {}
-    private int reviewId;
-    private String userName;
-    private int storeId;
-    private int star;
-    private String reviewContent;
-    private String hasPhoto;
-    private List<String> reviewImage;
-    private String createdAt;
-    private String updatedAt;
+    private int ReviewNum;
+    private String Title;
+    private String Content;
+    private String ReviewImage;
+    private String ReviewGrade;
+    private String WriterId;
+    private String ReviewTime;
+    private String Spot;
 }

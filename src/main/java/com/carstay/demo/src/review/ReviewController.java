@@ -33,17 +33,39 @@ public class ReviewController {
     }
 
     /**
-     * 가게 리뷰 조회 API
-     * [GET] /app/main/stores/:storeId/reviews
+     * 차박 리뷰 전체 조회 API
+     * [GET] /app/reviews
      * @return BaseResponse<List < GetCartRes>>
      */
     //Query String
     @ResponseBody
-    @GetMapping("/main/stores/{storeId}/reviews") // (GET) 127.0.0.1:9000/app/users
-    public BaseResponse<List<GetReviewRes>> getReviews(@PathVariable("storeId") int storeId) {
+    @GetMapping("/reviews") // (GET) 127.0.0.1:9000/app/users
+    public BaseResponse<List<GetReviewRes>> getReviews() {
         try {
             // Get Review
-            List<GetReviewRes> getReviewRes = reviewProvider.getReviews(storeId);
+            List<GetReviewRes> getReviewRes = reviewProvider.getReviews();
+            return new BaseResponse<>(getReviewRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 차박 리뷰 장소별 조회 API
+     * [GET] /app/reviews/spot/:spotId
+     * @return BaseResponse<List < GetCartRes>>
+     */
+    /**
+     * spotId int 형으로 받는게 편해서 db 수정해야될듯 (spot테이블 만들어서 지역별로 코드값 주는 형식,,?)
+     * 그래서 아직!! 안돌아감!!!!
+     */
+    //Query String
+    @ResponseBody
+    @GetMapping("/reviews/spot/{spotId}") // (GET) 127.0.0.1:9000/app/users
+    public BaseResponse<List<GetReviewRes>> getReviewsBySpot(@PathVariable("spotId") int spotId) {
+        try {
+            // Get Review
+            List<GetReviewRes> getReviewRes = reviewProvider.getReviewsBySpot(spotId);
             return new BaseResponse<>(getReviewRes);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
@@ -52,25 +74,29 @@ public class ReviewController {
 
     /**
      * 리뷰 작성 API
-     * [POST] /app/users/:userIdx/review
+     * [POST] /app/reviews/users/:userId
      * @return BaseResponse<PostReviewRes>
      */
     // Body
     @ResponseBody
-    @PostMapping("/users/{userIdx}/review")
-    public BaseResponse<PostReviewRes> createReview(@PathVariable int userIdx, @RequestBody PostReviewReq postReviewReq) {
+    @PostMapping("/reviews/users/{userId}")
+    public BaseResponse<PostReviewRes> createReview(@PathVariable String userId, @RequestBody PostReviewReq postReviewReq) {
         try{
-            //jwt에서 idx 추출.
-            int userIdxByJwt = jwtService.getUserIdx();
-            System.out.println(userIdxByJwt + " " + userIdx);
-            //userIdx와 접근한 유저가 같은지 확인
-            if(userIdx != userIdxByJwt){
-                return new BaseResponse<>(INVALID_USER_JWT);
-            }
+            /**
+             * jwt는 나중에 하는게 편하겄다
+             */
+//            //jwt에서 idx 추출.
+//            int userIdxByJwt = jwtService.getUserIdx();
+//            System.out.println(userIdxByJwt + " " + userIdx);
+//            //userIdx와 접근한 유저가 같은지 확인
+//            if(userIdx != userIdxByJwt){
+//                return new BaseResponse<>(INVALID_USER_JWT);
+//            }
+
 
             // Post Review
-            PostReviewRes postCartRes = reviewService.createReview(userIdx, postReviewReq);
-            return new BaseResponse<>(postCartRes);
+            PostReviewRes postReviewRes = reviewService.createReview(userId, postReviewReq);
+            return new BaseResponse<>(postReviewRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

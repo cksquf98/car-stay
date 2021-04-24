@@ -30,16 +30,27 @@ public class ReviewProvider {
         this.jwtService = jwtService;
     }
 
-    public List<GetReviewRes> getReviews(int storeId) throws BaseException{
+    public List<GetReviewRes> getReviews() throws BaseException{
             try{
                 System.out.println("provider1");
-                List<GetReviewRes> getReviewRes = reviewDao.getReviews(storeId);
+                List<GetReviewRes> getReviewRes = reviewDao.getReviews();
                 System.out.println("provider" + getReviewRes);
                 return getReviewRes;
             }
             catch (Exception exception) {
                 throw new BaseException(DATABASE_ERROR);
             }
+
+    }
+
+    public List<GetReviewRes> getReviewsBySpot(int spotId) throws BaseException{
+        try{
+            List<GetReviewRes> getReviewRes = reviewDao.getReviewsBySpot(spotId);
+            return getReviewRes;
+        }
+        catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
 
     }
 }

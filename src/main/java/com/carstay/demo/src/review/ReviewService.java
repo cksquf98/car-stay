@@ -31,11 +31,11 @@ public class ReviewService {
     }
 
     //POST
-    @Transactional
-    public PostReviewRes createReview(int userIdx, PostReviewReq postReviewReq) throws BaseException {
+   // @Transactional
+    public PostReviewRes createReview(String userId, PostReviewReq postReviewReq) throws BaseException {
 
             try{
-                int reviewId = reviewDao.createReview(userIdx, postReviewReq);
+                int reviewId = reviewDao.createReview(userId, postReviewReq);
                 return new PostReviewRes(reviewId);
             } catch (Exception exception) {
                 throw new BaseException(DATABASE_ERROR);

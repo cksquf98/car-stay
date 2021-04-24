@@ -10,10 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PostReviewReq {
     public PostReviewReq() {}
-
-    private int storeId;
-    private int star;
-    private String reviewContent;
-    private String hasPhoto;
-
+    private String title;
+    private String content;
+    private String reviewImage;
+    private int reviewGrade;
+    private String spot;
 }
