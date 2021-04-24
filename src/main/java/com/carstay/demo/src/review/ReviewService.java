@@ -42,4 +42,17 @@ public class ReviewService {
             }
 
     }
+
+    //Delete
+    // @Transactional
+    public DeleteReviewRes deleteReview(int reviewNum, String userId) throws BaseException {
+
+        try{
+            int reviewId = reviewDao.deleteReview(reviewNum, userId);
+            return new DeleteReviewRes(reviewId, userId);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+    }
 }

@@ -10,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DeleteReviewRes {
     public DeleteReviewRes() {}
-
-    private int userIdx;
-    private int cartItemId;
+    private int reviewNum;
+    private String writerId;
 }

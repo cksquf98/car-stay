@@ -101,6 +101,36 @@ public class ReviewController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    /**
+     * 리뷰 삭제 API
+     * [DELETE] /app/reviews/:reviewNum
+     * @return BaseResponse<DeleteReviewRes>
+     */
+    // Body
+    @ResponseBody
+    @DeleteMapping("/reviews/{reviewNum}/users/{userId}")
+    public BaseResponse<DeleteReviewRes> createReview(@PathVariable int reviewNum, @PathVariable String userId) {
+        try{
+            /**
+             * jwt는 나중에 하는게 편하겄다
+             */
+//            //jwt에서 idx 추출.
+//            int userIdxByJwt = jwtService.getUserIdx();
+//            System.out.println(userIdxByJwt + " " + userIdx);
+//            //userIdx와 접근한 유저가 같은지 확인
+//            if(userIdx != userIdxByJwt){
+//                return new BaseResponse<>(INVALID_USER_JWT);
+//            }
+
+
+            // Delete Review
+            DeleteReviewRes deleteReviewRes = reviewService.deleteReview(reviewNum, userId);
+            return new BaseResponse<>(deleteReviewRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }
 
 

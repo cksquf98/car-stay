@@ -2,6 +2,7 @@ package com.carstay.demo.src.review;
 
 
 
+import com.carstay.demo.src.review.model.DeleteReviewRes;
 import com.carstay.demo.src.review.model.GetReviewRes;
 import com.carstay.demo.src.review.model.PostReviewReq;
 import com.carstay.demo.src.user.model.GetUserRes;
@@ -61,6 +62,14 @@ public class ReviewDao {
 
         String lastInsertIdQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
+    }
+
+    public int deleteReview(int reviewNum, String userId){
+        String deleteReviewQuery = "delete from Review where reviewNum=? and writerId=?";
+        Object[] deleteQueryParams = new Object[]{reviewNum, userId};
+
+        this.jdbcTemplate.update(deleteReviewQuery,deleteQueryParams);
+        return reviewNum;
     }
 }
 
