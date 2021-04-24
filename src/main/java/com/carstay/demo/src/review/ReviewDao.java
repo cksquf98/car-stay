@@ -54,12 +54,12 @@ public class ReviewDao {
     }
 
     public int createReview(String userId, PostReviewReq postReviewReq){
+        System.out.println(postReviewReq.getTitle());
         String createReviewQuery = "insert into Review (Title, Content, ReviewImage, ReviewGrade, WriterId, Spot) values (?, ?, ?, ?, ?, ?)";
         Object[] createQueryParams = new Object[]{postReviewReq.getTitle(), postReviewReq.getContent(), postReviewReq.getReviewImage(), postReviewReq.getReviewGrade(), userId, postReviewReq.getSpot()};
         this.jdbcTemplate.update(createReviewQuery, createQueryParams);
 
         String lastInsertIdQuery = "select last_insert_id()";
-        System.out.println(lastInsertIdQuery);
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 }
