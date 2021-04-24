@@ -44,17 +44,6 @@ public class UserProvider {
         }
     }
 
-    public List<GetUserRes> getUsersByEmail(String email) throws BaseException{
-        try{
-            List<GetUserRes> getUsersRes = userDao.getUsersByEmail(email);
-            return getUsersRes;
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-                    }
-
-
     public GetUserRes getUser(int userIdx) throws BaseException {
         try {
             GetUserRes getUserRes = userDao.getUser(userIdx);
@@ -64,16 +53,17 @@ public class UserProvider {
         }
     }
 
-    public int checkEmail(String email) throws BaseException{
+    public int checkId(String userId) throws BaseException{
         try{
-            return userDao.checkEmail(email);
+            return userDao.checkId(userId);
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }
 
+
     public PostLoginRes logIn(PostLoginReq postLoginReq) throws BaseException{
-        if(checkEmail(postLoginReq.getEmail()) == 0){
+        if(checkId(postLoginReq.getUserId()) == 0){
             throw new BaseException(NO_MATCH_ID_AND_PASSWORD);
         }
         else{
@@ -86,17 +76,13 @@ public class UserProvider {
             }
 
             if(postLoginReq.getPassword().equals(password)){
-                if(user.getStatus().equals("Y"))
-                {
+
                     int userIdx = userDao.getPwd(postLoginReq).getUserIdx();
                     String userName = userDao.getPwd(postLoginReq).getUserName();
                     String phoneNumber = userDao.getPwd(postLoginReq).getPhoneNumber();
                     String jwt = jwtService.createJwt(userIdx);
                     return new PostLoginRes(userIdx, userName, phoneNumber, jwt);
-                }
-                else {
-                    throw new BaseException(USER_IS_NOT_AVAILABLE);
-                }
+
             }
             else{
                 throw new BaseException(FAILED_TO_LOGIN);

@@ -20,49 +20,27 @@ public class UserDao {
     }
 
     public List<GetUserRes> getUsers(){
-        String getUsersQuery = "select * from User";
+        String getUsersQuery = "select userIdx, userId, password, userName, phoneNumber from User";
         return this.jdbcTemplate.query(getUsersQuery,
                 (rs,rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
-                        rs.getString("Email"),
+                        rs.getString("userId"),
                         rs.getString("password"),
                         rs.getString("userName"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("createdAt"),
-                        rs.getString("updatedAt"),
-                        rs.getString("status"))
+                        rs.getString("phoneNumber"))
                 );
     }
 
-    public List<GetUserRes> getUsersByEmail(String email){
-        String getUsersByEmailQuery = "select * from User where email =?";
-        String getUsersByEmailParams = email;
-        return this.jdbcTemplate.query(getUsersByEmailQuery,
-                (rs, rowNum) -> new GetUserRes(
-                        rs.getInt("userIdx"),
-                        rs.getString("Email"),
-                        rs.getString("password"),
-                        rs.getString("userName"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("createdAt"),
-                        rs.getString("updatedAt"),
-                        rs.getString("status")),
-                getUsersByEmailParams);
-    }
-
     public GetUserRes getUser(int userIdx){
-        String getUserQuery = "select * from User where userIdx = ?";
+        String getUserQuery = "select userIdx, userId, password, userName, phoneNumber from User where userIdx=?";
         int getUserParams = userIdx;
         return this.jdbcTemplate.queryForObject(getUserQuery,
                 (rs, rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
-                        rs.getString("Email"),
+                        rs.getString("userId"),
                         rs.getString("password"),
                         rs.getString("userName"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("createdAt"),
-                        rs.getString("updatedAt"),
-                        rs.getString("status")),
+                        rs.getString("phoneNumber")),
                 getUserParams);
     }
 
@@ -80,9 +58,9 @@ public class UserDao {
         Object[] createUserParams = new Object[]{key, userPhoneNumber};
         this.jdbcTemplate.update(createUserQuery, createUserParams);
     }
-    public int checkEmail(String email){
-        String checkEmailQuery = "select exists(select email from User where email = ?)";
-        String checkEmailParams = email;
+    public int checkId(String userId){
+        String checkEmailQuery = "select exists(select userId from User where userId = ?)";
+        String checkEmailParams = userId;
         return this.jdbcTemplate.queryForObject(checkEmailQuery,
                 int.class,
                 checkEmailParams);
@@ -107,18 +85,16 @@ public class UserDao {
     }
 */
     public User getPwd(PostLoginReq postLoginReq){
-        String getPwdQuery = "select userIdx, email, password, userName, phoneNumber, status from User where email = ?";
-        String getPwdParams = postLoginReq.getEmail();
+        String getPwdQuery = "select userIdx, userId, password, userName, phoneNumber from User where userId = ?";
+        String getPwdParams = postLoginReq.getUserId();
 
         return this.jdbcTemplate.queryForObject(getPwdQuery,
                 (rs,rowNum)-> new User(
                         rs.getInt("userIdx"),
-                        rs.getString("email"),
+                        rs.getString("userId"),
                         rs.getString("password"),
                         rs.getString("userName"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("status")
-                ),
+                        rs.getString("phoneNumber")),
                 getPwdParams);
     }
 

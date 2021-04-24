@@ -48,15 +48,12 @@ public class UserController {
     //Query String
     @ResponseBody
     @GetMapping("") // (GET) 127.0.0.1:9000/app/users
-    public BaseResponse<List<GetUserRes>> getUsers(@RequestParam(required = false) String email) {
+    public BaseResponse<List<GetUserRes>> getUsers() {
         try{
-            if(email == null){
+
                 List<GetUserRes> getUsersRes = userProvider.getUsers();
                 return new BaseResponse<>(getUsersRes);
-            }
-            // Get Users
-            List<GetUserRes> getUsersRes = userProvider.getUsersByEmail(email);
-            return new BaseResponse<>(getUsersRes);
+
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
@@ -160,14 +157,14 @@ public class UserController {
             return new BaseResponse<>(POST_USERS_EMPTY_PHONENUMBER);
         }
         try{
-            String code = sendSMS(postUserReq.getPhoneNumber());
-            if(code != postUserReq.getAuthCode()) {
-                return new BaseResponse<>(POST_USERS_INVALID_CODE);
-            }
-            else {
+//            String code = sendSMS(postUserReq.getPhoneNumber());
+//            if(code != postUserReq.getAuthCode()) {
+//                return new BaseResponse<>(POST_USERS_INVALID_CODE);
+//            }
+//            else {
                 PostUserRes postUserRes = userService.createUser(postUserReq);
                 return new BaseResponse<>(postUserRes);
-            }
+           // }
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
