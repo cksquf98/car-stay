@@ -4,6 +4,7 @@ package com.carstay.demo.src.review;
 
 import com.carstay.demo.src.review.model.DeleteReviewRes;
 import com.carstay.demo.src.review.model.GetReviewRes;
+import com.carstay.demo.src.review.model.PostCommentReq;
 import com.carstay.demo.src.review.model.PostReviewReq;
 import com.carstay.demo.src.user.model.GetUserRes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,6 @@ public class ReviewDao {
     }
 
     public int createReview(String userId, PostReviewReq postReviewReq){
-        System.out.println(postReviewReq.getTitle());
         String createReviewQuery = "insert into Review (Title, Content, ReviewImage, ReviewGrade, WriterId, Spot) values (?, ?, ?, ?, ?, ?)";
         Object[] createQueryParams = new Object[]{postReviewReq.getTitle(), postReviewReq.getContent(), postReviewReq.getReviewImage(), postReviewReq.getReviewGrade(), userId, postReviewReq.getSpot()};
         this.jdbcTemplate.update(createReviewQuery, createQueryParams);
@@ -65,11 +65,58 @@ public class ReviewDao {
     }
 
     public int deleteReview(int reviewNum, String userId){
+        if(checkReview(reviewNum) == 0) {
+            return 0;
+        }
+
         String deleteReviewQuery = "delete from Review where reviewNum=? and writerId=?";
         Object[] deleteQueryParams = new Object[]{reviewNum, userId};
 
         this.jdbcTemplate.update(deleteReviewQuery,deleteQueryParams);
         return reviewNum;
+    }
+
+    public int createComment(int reviewNum, String userId, PostCommentReq postCommentReq){
+        if(checkReview(reviewNum) == 0) {
+            return 0;
+        }
+
+        String createCommentQuery = "insert into Comment (reviewNum, commentContent, commentWriter) values (?, ?, ?)";
+        Object[] createCommentParams = new Object[]{reviewNum, postCommentReq.getCommentContent(), userId};
+        this.jdbcTemplate.update(createCommentQuery, createCommentParams);
+
+        String lastInsertIdQuery = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
+    }
+
+    public int checkReview(int reviewNum){
+        String checkReviewQuery = "select exists(select reviewNum from Review where reviewNum = ?)";
+        int checkReviewParams = reviewNum;
+        return this.jdbcTemplate.queryForObject(checkReviewQuery,
+                int.class,
+                checkReviewParams);
+
+    }
+
+    public int deleteComment(int reviewNum, String userId, int commentNum){
+        if(checkComment(commentNum) == 0) {
+            return 0;
+        }
+
+        String delteCommentQuery = "delete from Comment where reviewNum=? and commentWriter=? and commentNum =?";
+        Object[] deleteCommentParams = new Object[]{reviewNum, userId, commentNum};
+
+        this.jdbcTemplate.update(delteCommentQuery,deleteCommentParams);
+        return reviewNum;
+    }
+
+    public int checkComment(int commentNum){
+        String checkCommentQuery = "select exists(select commentNum from Comment where commentNum = ?)";
+        int checkCommentParams = commentNum;
+        return this.jdbcTemplate.queryForObject(checkCommentQuery,
+                int.class,
+                checkCommentParams);
+
     }
 }
 

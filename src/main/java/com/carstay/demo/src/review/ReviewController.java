@@ -18,14 +18,12 @@ import static com.carstay.demo.config.BaseResponseStatus.INVALID_USER_JWT;
 public class ReviewController {
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
+
     private final ReviewProvider reviewProvider;
-    @Autowired
     private final ReviewService reviewService;
-    @Autowired
     private final JwtService jwtService;
 
-
+    @Autowired
     public ReviewController(ReviewProvider reviewProvider, ReviewService reviewService, JwtService jwtService) {
         this.reviewProvider = reviewProvider;
         this.reviewService = reviewService;
@@ -110,7 +108,7 @@ public class ReviewController {
     // Body
     @ResponseBody
     @DeleteMapping("/reviews/{reviewNum}/users/{userId}")
-    public BaseResponse<DeleteReviewRes> createReview(@PathVariable int reviewNum, @PathVariable String userId) {
+    public BaseResponse<DeleteReviewRes> deleteReview(@PathVariable int reviewNum, @PathVariable String userId) {
         try{
             /**
              * jwt는 나중에 하는게 편하겄다
@@ -127,6 +125,65 @@ public class ReviewController {
             // Delete Review
             DeleteReviewRes deleteReviewRes = reviewService.deleteReview(reviewNum, userId);
             return new BaseResponse<>(deleteReviewRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 댓글 작성 API
+     * [POST] /app/reviews/:reviewId/userId/:userId/comment
+     * @return BaseResponse<PostReviewRes>
+     */
+    // Body
+    @ResponseBody
+    @PostMapping("/reviews/{reviewNum}/users/{userId}/comment")
+    public BaseResponse<PostCommentRes> createComment(@PathVariable int reviewNum, @PathVariable String userId, @RequestBody PostCommentReq postCommentReq) {
+        try{
+            /**
+             * jwt는 나중에 하는게 편하겄다잉
+             */
+//            //jwt에서 idx 추출.
+//            int userIdxByJwt = jwtService.getUserIdx();
+//            System.out.println(userIdxByJwt + " " + userIdx);
+//            //userIdx와 접근한 유저가 같은지 확인
+//            if(userIdx != userIdxByJwt){
+//                return new BaseResponse<>(INVALID_USER_JWT);
+//            }
+
+            // Post Comment
+            PostCommentRes postCommentRes = reviewService.createComment(reviewNum, userId, postCommentReq);
+            return new BaseResponse<>(postCommentRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 댓글 삭제 API
+     * [DELETE] app/reviews/:reviewId/userId/:userId/comment/:commentId
+     * @return BaseResponse<DeleteCommentRes>
+     */
+    // Body
+    @ResponseBody
+    @DeleteMapping("/reviews/{reviewNum}/users/{userId}/comment/{commentNum}")
+    public BaseResponse<DeleteCommentRes> deleteComment(@PathVariable int reviewNum,@PathVariable String userId,  @PathVariable int commentNum) {
+        try{
+            /**
+             * jwt는 나중에 하는게 편하겄다
+             */
+//            //jwt에서 idx 추출.
+//            int userIdxByJwt = jwtService.getUserIdx();
+//            System.out.println(userIdxByJwt + " " + userIdx);
+//            //userIdx와 접근한 유저가 같은지 확인
+//            if(userIdx != userIdxByJwt){
+//                return new BaseResponse<>(INVALID_USER_JWT);
+//            }
+
+
+            // Delete Review
+            DeleteCommentRes deleteCommentRes = reviewService.deleteComment(reviewNum, userId, commentNum);
+            return new BaseResponse<>(deleteCommentRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

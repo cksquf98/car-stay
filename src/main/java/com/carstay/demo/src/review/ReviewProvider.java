@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.carstay.demo.config.BaseResponseStatus.DATABASE_ERROR;
-import static com.carstay.demo.config.BaseResponseStatus.NO_CART;
 
 //Provider : Read의 비즈니스 로직 처리
 @Service

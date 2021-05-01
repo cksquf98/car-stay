@@ -31,7 +31,7 @@ public class ReviewService {
     }
 
     //POST
-   // @Transactional
+    // @Transactional
     public PostReviewRes createReview(String userId, PostReviewReq postReviewReq) throws BaseException {
 
             try{
@@ -47,12 +47,36 @@ public class ReviewService {
     // @Transactional
     public DeleteReviewRes deleteReview(int reviewNum, String userId) throws BaseException {
 
-        try{
-            int reviewId = reviewDao.deleteReview(reviewNum, userId);
-            return new DeleteReviewRes(reviewId, userId);
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
+            int result = reviewDao.deleteReview(reviewNum, userId);
+            if(result == 0) {
+                throw new BaseException(INVALID_REVIEWNUM);
+            }
+            return new DeleteReviewRes(result, userId);
+    }
+
+    //POST
+    // @Transactional
+    public PostCommentRes createComment(int reviewNum, String userId, PostCommentReq postCommentReq) throws BaseException {
+
+            int result = reviewDao.createComment(reviewNum, userId, postCommentReq);
+            System.out.println("result" + result);
+            if(result == 0) {
+                throw new BaseException(INVALID_REVIEWNUM);
+            }
+
+        return new PostCommentRes(result);
+    }
+
+    //Delete
+    // @Transactional
+    public DeleteCommentRes deleteComment(int reviewNum, String userId, int commentNum) throws BaseException {
+
+        int result = reviewDao.deleteComment(reviewNum, userId, commentNum);
+        if(result == 0) {
+            throw new BaseException(INVALID_COMMENTNUM);
         }
+        return new DeleteCommentRes(commentNum, userId);
+
 
     }
 }

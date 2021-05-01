@@ -4,12 +4,14 @@ com/carstay/demo/src/user/model/PostUserReq.java
  com.carstay.demo.src.user.model.PostUserReq
 com/carstay/demo/src/review/model/PostReviewRes.java
  com.carstay.demo.src.review.model.PostReviewRes
-com/carstay/demo/config/BaseResponse.java
- com.carstay.demo.config.BaseResponse
-com/carstay/demo/src/user/UserController.java
- com.carstay.demo.src.user.UserController
-com/carstay/demo/config/BaseResponseStatus.java
- com.carstay.demo.config.BaseResponseStatus
+com/carstay/demo/utils/ValidationRegex.java
+ com.carstay.demo.utils.ValidationRegex
+com/carstay/demo/src/user/model/PostLoginRes.java
+ com.carstay.demo.src.user.model.PostLoginRes
+com/carstay/demo/src/test/TestController.java
+ com.carstay.demo.src.test.TestController
+com/carstay/demo/src/review/model/PostCommentRes.java
+ com.carstay.demo.src.review.model.PostCommentRes
 com/carstay/demo/src/user/model/GetJWTRes.java
  com.carstay.demo.src.user.model.GetJWTRes
 com/carstay/demo/config/secret/Secret.java
@@ -20,18 +22,18 @@ com/carstay/demo/src/user/model/PostUserRes.java
  com.carstay.demo.src.user.model.PostUserRes
 com/carstay/demo/utils/AES128.java
  com.carstay.demo.utils.AES128
-com/carstay/demo/src/review/ReviewProvider.java
- com.carstay.demo.src.review.ReviewProvider
-com/carstay/demo/src/review/ReviewController.java
- com.carstay.demo.src.review.ReviewController
+com/carstay/demo/src/review/model/GetReviewRes.java
+ com.carstay.demo.src.review.model.GetReviewRes
+com/carstay/demo/src/WebSecurityConfig.java
+ com.carstay.demo.src.WebSecurityConfig
 com/carstay/demo/src/user/UserDao.java
  com.carstay.demo.src.user.UserDao
 com/carstay/demo/src/user/model/PostCertReq.java
  com.carstay.demo.src.user.model.PostCertReq
 com/carstay/demo/src/user/model/PostLoginReq.java
  com.carstay.demo.src.user.model.PostLoginReq
-com/carstay/demo/src/user/UserService.java
- com.carstay.demo.src.user.UserService
+com/carstay/demo/src/user/model/User.java
+ com.carstay.demo.src.user.model.User
 com/carstay/demo/src/user/model/GetJWTReq.java
  com.carstay.demo.src.user.model.GetJWTReq
 com/carstay/demo/DemoApplication.java
@@ -42,25 +44,29 @@ com/carstay/demo/src/user/model/PostSMSReq.java
  com.carstay.demo.src.user.model.PostSMSReq
 com/carstay/demo/config/Constant.java
  com.carstay.demo.config.Constant
-com/carstay/demo/src/user/UserProvider.java
- com.carstay.demo.src.user.UserProvider
-com/carstay/demo/src/user/model/User.java
- com.carstay.demo.src.user.model.User
+com/carstay/demo/src/review/model/PostCommentReq.java
+ com.carstay.demo.src.review.model.PostCommentReq
+com/carstay/demo/src/user/UserService.java
+ com.carstay.demo.src.user.UserService
 com/carstay/demo/config/BaseException.java
  com.carstay.demo.config.BaseException
-com/carstay/demo/src/review/ReviewService.java
- com.carstay.demo.src.review.ReviewService
-com/carstay/demo/utils/ValidationRegex.java
- com.carstay.demo.utils.ValidationRegex
-com/carstay/demo/src/review/model/GetReviewRes.java
- com.carstay.demo.src.review.model.GetReviewRes
-com/carstay/demo/src/test/TestController.java
- com.carstay.demo.src.test.TestController
-com/carstay/demo/src/user/model/PostLoginRes.java
- com.carstay.demo.src.user.model.PostLoginRes
+com/carstay/demo/config/BaseResponse.java
+ com.carstay.demo.config.BaseResponse
+com/carstay/demo/src/user/UserController.java
+ com.carstay.demo.src.user.UserController
+com/carstay/demo/config/BaseResponseStatus.java
+ com.carstay.demo.config.BaseResponseStatus
 com/carstay/demo/utils/JwtService.java
  com.carstay.demo.utils.JwtService
-com/carstay/demo/src/WebSecurityConfig.java
- com.carstay.demo.src.WebSecurityConfig
+com/carstay/demo/src/review/model/DeleteCommentRes.java
+ com.carstay.demo.src.review.model.DeleteCommentRes
+com/carstay/demo/src/user/UserProvider.java
+ com.carstay.demo.src.user.UserProvider
+com/carstay/demo/src/review/ReviewService.java
+ com.carstay.demo.src.review.ReviewService
+com/carstay/demo/src/review/ReviewProvider.java
+ com.carstay.demo.src.review.ReviewProvider
+com/carstay/demo/src/review/ReviewController.java
+ com.carstay.demo.src.review.ReviewController
 com/carstay/demo/src/review/ReviewDao.java
  com.carstay.demo.src.review.ReviewDao

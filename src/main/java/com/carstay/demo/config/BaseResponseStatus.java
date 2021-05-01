@@ -38,18 +38,9 @@ public enum BaseResponseStatus {
     POST_USERS_INVALID_PHONE(false, 2024, "휴대폰 인증을 해야합니다."),
     USER_IS_NOT_AVAILABLE(false, 2023, "탈퇴한 유저입니다."),
     AUTH_ERROR(false, 2025, "인증 오류입니다."),
-    NO_BOOKMARK(false, 2100, "즐겨찾는 맞집이 없습니다."),
-    POST_BOOKMARK_EXIST_STORE(false, 2101, "이미 즐겨찾기 된 맛집입니다."),
-    DELETE_BOOKMARK_NOEXIST_STORE(false, 2102, "즐겨찾기가 되어있지 않습니다."),
-    POST_USERS_INVALID_CODE(false, 2103, "인증번호가 다릅니다."),
+    INVALID_REVIEWNUM(false, 2100, "해당 게시글은 존재하지 않습니다."),
+    INVALID_COMMENTNUM(false, 2101, "해당 댓글은 존재하지 않습니다."),
 
-    NO_CART(false, 2200, "장바구니가 비어있습니다."),
-    ONLY_ONE_STORE_IN_CART(false, 2201, "같은 가게의 메뉴만 담을 수 있습니다."),
-    DELETE_CART_NOEXIST_CARTITEM(false, 2202, "해당 cartItemId가 존재하지 않거나 userId를 확인해주세요."),
-
-    CHECK_STORE_AND_MENU(false, 2300, "가게 id와 메뉴 id를 확인해주세요."),
-
-    NO_PAYMENT(false,2400, "결제수단을 입력해주세요."),
 
     /**
      * 3000 : Response 오류
