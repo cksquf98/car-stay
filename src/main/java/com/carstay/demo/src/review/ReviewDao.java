@@ -2,10 +2,7 @@ package com.carstay.demo.src.review;
 
 
 
-import com.carstay.demo.src.review.model.DeleteReviewRes;
-import com.carstay.demo.src.review.model.GetReviewRes;
-import com.carstay.demo.src.review.model.PostCommentReq;
-import com.carstay.demo.src.review.model.PostReviewReq;
+import com.carstay.demo.src.review.model.*;
 import com.carstay.demo.src.user.model.GetUserRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -53,6 +50,23 @@ public class ReviewDao {
                         rs.getString("ReviewTime"),
                         rs.getString("Spot")),
                 spotId);
+    }
+    public List<GetDetailReviewRes> getDetailReview(int reviewNum) {
+        String getUsersQuery = "select Review.ReviewNum, Title, Content, ReviewImage, ReviewGrade,WriterId, ReviewTime, Spot, CommentContent, CommentWriter, CommentTime from Review left join Comment on Review.ReviewNum= Comment.ReviewNum where Review.ReviewNum= ?";
+
+        return this.jdbcTemplate.query(getUsersQuery,
+                (rs,rowNum) -> new GetDetailReviewRes(
+                        rs.getInt("ReviewNum"),
+                        rs.getString("Title"),
+                        rs.getString("Content"),
+                        rs.getString("ReviewImage"),
+                        rs.getString("ReviewGrade"),
+                        rs.getString("WriterId"),
+                        rs.getString("ReviewTime"),
+                        rs.getString("Spot"),
+                        rs.getString("CommentContent"),
+                        rs.getString("CommentWriter"),
+                        rs.getString("CommentTime")),reviewNum);
     }
 
     public int createReview(String userId, PostReviewReq postReviewReq){

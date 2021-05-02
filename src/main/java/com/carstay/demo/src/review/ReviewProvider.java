@@ -2,6 +2,7 @@ package com.carstay.demo.src.review;
 
 
 import com.carstay.demo.config.BaseException;
+import com.carstay.demo.src.review.model.GetDetailReviewRes;
 import com.carstay.demo.src.review.model.GetReviewRes;
 import com.carstay.demo.utils.JwtService;
 import org.slf4j.Logger;
@@ -51,5 +52,14 @@ public class ReviewProvider {
             throw new BaseException(DATABASE_ERROR);
         }
 
+    }
+
+    public List<GetDetailReviewRes> getDetailReview(int reviewNum) throws BaseException {
+        try {
+            List<GetDetailReviewRes> getDetailReviewRes = reviewDao.getDetailReview(reviewNum);
+            return getDetailReviewRes;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
     }
 }

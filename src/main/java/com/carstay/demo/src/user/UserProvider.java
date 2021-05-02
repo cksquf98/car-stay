@@ -44,9 +44,9 @@ public class UserProvider {
         }
     }
 
-    public GetUserRes getUser(int userIdx) throws BaseException {
+    public GetUserRes getUser(String userId) throws BaseException {
         try {
-            GetUserRes getUserRes = userDao.getUser(userIdx);
+            GetUserRes getUserRes = userDao.getUser(userId);
             return getUserRes;
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);

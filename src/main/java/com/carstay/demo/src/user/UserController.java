@@ -65,7 +65,7 @@ public class UserController {
      * @return BaseResponse<GetUserRes>
      */
     // Path-variable
-    @ResponseBody
+    /*@ResponseBody
     @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/app/users/:userIdx
     public BaseResponse<GetUserRes> getUser(@PathVariable("userIdx") int userIdx) {
         // Get Users
@@ -83,8 +83,32 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
 
-    }
+    }*/
+    /**
+     * 마이페이지 용 회원정보 조회 API
+     * [GET] /users/:userId
+     * @return BaseResponse<GetUserRes>
+     */
+    // Path-variable
+    @ResponseBody
+    @GetMapping("/{userId}") // (GET) 127.0.0.1:9000/app/users/:userIdx
+    public BaseResponse<GetUserRes> getUser(@PathVariable("userId") String userId) {
+        // Get Users
+        try{
+          /*  // jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+            // userIdx와 접근한 유저가 같은지 확인
+            if(userIdx != userIdxByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }*/
 
+            GetUserRes getUserRes = userProvider.getUser(userId);
+            return new BaseResponse<>(getUserRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+
+    }
      /**
      * 휴대폰 인증 API
      * [POST] /sendSMS

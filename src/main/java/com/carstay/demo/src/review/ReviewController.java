@@ -69,6 +69,25 @@ public class ReviewController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+    /**
+     * 차박 리뷰 상세조회 API
+     * [GET] /app/review/:reviewNum
+     * @return BaseResponse<List < GetCartRes>>
+     */
+
+    //Query String
+    @ResponseBody
+    @GetMapping("/reviews/{reviewNum}") // (GET) 127.0.0.1:9000/app/users
+    public BaseResponse<List<GetDetailReviewRes>> getDetailReview(@PathVariable("reviewNum") int reviewNum) {
+        try {
+            // Get Detail Review
+            System.out.println(reviewNum);
+            List<GetDetailReviewRes> getReviewRes = reviewProvider.getDetailReview(reviewNum);
+            return new BaseResponse<>(getReviewRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
     /**
      * 리뷰 작성 API

@@ -20,18 +20,21 @@ public class UserDao {
     }
 
     public List<GetUserRes> getUsers(){
-        String getUsersQuery = "select userIdx, userId, password, userName, phoneNumber from User";
+        String getUsersQuery = "select userIdx,userId, userName, phoneNumber, birth, xLocation, yLocation from User";
         return this.jdbcTemplate.query(getUsersQuery,
                 (rs,rowNum) -> new GetUserRes(
                         rs.getInt("userIdx"),
                         rs.getString("userId"),
-                        rs.getString("password"),
                         rs.getString("userName"),
-                        rs.getString("phoneNumber"))
+                        rs.getString("phoneNumber"),
+                        rs.getString("birth"),
+                        rs.getFloat("xLocation"),
+                        rs.getFloat("yLocation"))
+
                 );
     }
 
-    public GetUserRes getUser(int userIdx){
+    /*public GetUserRes getUser(int userIdx){
         String getUserQuery = "select userIdx, userId, password, userName, phoneNumber from User where userIdx=?";
         int getUserParams = userIdx;
         return this.jdbcTemplate.queryForObject(getUserQuery,
@@ -41,6 +44,21 @@ public class UserDao {
                         rs.getString("password"),
                         rs.getString("userName"),
                         rs.getString("phoneNumber")),
+                getUserParams);
+    }*/
+    public GetUserRes getUser(String userId) {
+        String getUserQuery = "select userIdx,userName,userId,phoneNumber,birth,xLocation,yLocation from User where userId=?";
+        String getUserParams = userId;
+        System.out.println(userId);
+        return this.jdbcTemplate.queryForObject(getUserQuery,
+                (rs, rowNum) -> new GetUserRes(
+                        rs.getInt("userIdx"),
+                        rs.getString("userName"),
+                        rs.getString("userId"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("birth"),
+                        rs.getFloat("xLocation"),
+                        rs.getFloat("yLocation")),
                 getUserParams);
     }
 

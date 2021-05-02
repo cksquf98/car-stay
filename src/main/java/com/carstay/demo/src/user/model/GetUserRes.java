@@ -11,7 +11,10 @@ import lombok.Setter;
 public class GetUserRes {
     private int userIdx;
     private String userId;
-    private String password;
     private String userName;
+    private String birth;
     private String phoneNumber;
+    private float xLocation;
+    private float yLocation;
+
 }
